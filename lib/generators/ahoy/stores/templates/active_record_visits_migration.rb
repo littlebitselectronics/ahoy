@@ -15,7 +15,7 @@ class <%= migration_class_name %> < ActiveRecord::Migration
 
       # user
       t.integer :user_id
-      # add t.string :user_type if polymorphic
+      t.string :user_type
 
       # traffic source
       t.string :referring_domain

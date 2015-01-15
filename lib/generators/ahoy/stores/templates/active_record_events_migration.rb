@@ -6,7 +6,7 @@ class <%= migration_class_name %> < ActiveRecord::Migration
 
       # user
       t.integer :user_id
-      # add t.string :user_type if polymorphic
+      t.string :user_type
 
       t.string :name
       t.<% if options["database"] == "postgresql" %>json<% else %>text<% end %> :properties
