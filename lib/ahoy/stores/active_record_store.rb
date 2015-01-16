@@ -8,6 +8,7 @@ module Ahoy
             v.id = ahoy.visit_id
             v.visitor_id = ahoy.visitor_id
             v.user = user if v.respond_to?(:user=)
+            v.anonymous_user = anonymous_user if v.respond_to?(:anonymous_user=)
             v.started_at = options[:started_at]
           end
 
@@ -29,6 +30,7 @@ module Ahoy
             e.id = options[:id]
             e.visit_id = ahoy.visit_id
             e.user = user
+            e.anonymous_user = anonymous_user
             e.name = name
             e.properties = properties
             e.time = options[:time]
