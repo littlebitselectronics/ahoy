@@ -9,6 +9,7 @@ module Ahoy
         def boom
           invoke "ahoy:stores:active_record_visits", nil, options
           invoke "ahoy:stores:active_record_events", nil, options
+          invoke "ahoy:stores:active_record_event_properties", nil, options
         end
 
       end
