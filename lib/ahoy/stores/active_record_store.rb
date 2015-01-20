@@ -34,6 +34,8 @@ module Ahoy
             e.name = name
             e.time = options[:time]
             properties.each do |name, value|
+              # put a binding.pry in here and checkout why you are getting the following error
+              #"Mysql2::Error - Out of range value for column 'event_id' at row 1"
               e.properties.build(name: name, value: value)
             end
           end
