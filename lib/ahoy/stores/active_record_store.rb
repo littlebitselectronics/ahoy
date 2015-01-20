@@ -32,8 +32,10 @@ module Ahoy
             e.user = user
             e.anonymous_user = anonymous_user
             e.name = name
-            e.properties = properties
             e.time = options[:time]
+            properties.each do |name, value|
+              e.properties.build(name: name, value: value)
+            end
           end
 
         yield(event) if block_given?
