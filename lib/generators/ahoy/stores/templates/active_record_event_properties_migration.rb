@@ -8,6 +8,6 @@ class <%= migration_class_name %> < ActiveRecord::Migration
       t.string :value
     end
 
-    add_index :ahoy_events, [:event_id, :name]
+    add_index :ahoy_event_properties, [:event_id, :name]
   end
 end
