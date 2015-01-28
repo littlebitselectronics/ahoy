@@ -15,7 +15,6 @@ class <%= migration_class_name %> < ActiveRecord::Migration
 
       # user
       t.integer :user_id
-      t.integer :anonymous_user_id
 
       # traffic source
       t.string :referring_domain
