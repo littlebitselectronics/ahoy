@@ -10,15 +10,19 @@ module Ahoy
     end
 
     def track(name, properties = {}, options = {})
+      persisted_event = nil
+
       unless exclude?
         options = options.dup
 
         options[:time] = trusted_time(options[:time])
         options[:id] = ensure_uuid(options[:id] || generate_id)
 
-        @store.track_event(name, properties, options)
+        @store.track_event(name, properties, options) do |event|
+          persisted_event = event
+        end
       end
-      true
+      persisted_event
     rescue => e
       report_exception(e)
     end
