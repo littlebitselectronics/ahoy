@@ -230,12 +230,17 @@
     }, 1000);
   };
 
-  ahoy.trackView = function () {
+  ahoy.trackView = function(extraProperties) {
     var properties = {
       url: window.location.href,
       title: document.title,
       page: page
     };
+
+    if(typeof(extraProperties) == "object") {
+      $.extend(properties, extraProperties);
+    }
+
     ahoy.track("$view", properties);
   };
 
