@@ -9,7 +9,7 @@ class <%= migration_class_name %> < ActiveRecord::Migration
       t.uuid :visitor_id
 
       t.string :name
-      t.<% if options["database"] == "postgresql" %>json<% else %>text<% end %> :properties
+
       t.timestamp :time
     end
 
