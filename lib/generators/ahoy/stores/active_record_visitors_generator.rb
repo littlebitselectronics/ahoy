@@ -7,7 +7,7 @@ require "rails/generators/active_record"
 module Ahoy
   module Stores
     module Generators
-      class ActiveRecordEventPropertiesGenerator < Rails::Generators::Base
+      class ActiveRecordVisitorsGenerator < Rails::Generators::Base
         include Rails::Generators::Migration
         source_root File.expand_path("../templates", __FILE__)
 
@@ -27,11 +27,11 @@ module Ahoy
           unless options["database"].in?([nil, "postgresql"])
             raise Thor::Error, "Unknown database option"
           end
-          migration_template "active_record_event_properties_migration.rb", "db/migrate/create_ahoy_event_properties.rb"
+          migration_template "active_record_visitors_migration.rb", "db/migrate/create_visitors.rb"
         end
 
         def generate_model
-          template "active_record_event_property_model.rb", "app/models/ahoy/event_property.rb"
+          template "active_record_visitor_model.rb", "app/models/visitor.rb"
         end
 
         def create_initializer

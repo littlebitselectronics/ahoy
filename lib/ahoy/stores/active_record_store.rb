@@ -13,6 +13,9 @@ module Ahoy
 
         set_visit_properties(visit)
 
+        visitor = Visitor.find_or_create_by(id: visit.visitor_id)
+        visitor.visits << visit
+
         yield(visit) if block_given?
 
         begin
@@ -53,6 +56,10 @@ module Ahoy
 
       def visit_model
         ::Visit
+      end
+
+      def visitor_model
+        ::Visitor
       end
 
       def event_model
