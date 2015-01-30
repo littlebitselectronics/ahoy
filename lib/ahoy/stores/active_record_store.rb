@@ -31,6 +31,7 @@ module Ahoy
           event_model.new do |e|
             e.id = options[:id]
             e.visit_id = ahoy.visit_id
+            e.visitor_id = ahoy.visitor_id
             e.user = user
             e.name = name
             e.time = options[:time]
