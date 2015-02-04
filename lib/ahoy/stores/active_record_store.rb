@@ -20,6 +20,7 @@ module Ahoy
 
         begin
           visit.save!
+          visitor.save!
           geocode(visit)
         rescue *unique_exception_classes
           # do nothing
