@@ -54,7 +54,7 @@ module Ahoy
     end
 
     def visit
-      @visit ||= @store.visit
+      @visit ||= (@store.visit || Visit.new)
     end
 
     def visit_id
