@@ -15,7 +15,6 @@ module Ahoy
       unless exclude?
         options = options.dup
 
-        options[:time] = trusted_time(options[:time])
         options[:id] = ensure_uuid(options[:id] || generate_id)
 
         @store.track_event(name, properties, options) do |event|
@@ -33,8 +32,6 @@ module Ahoy
           set_cookie("ahoy_track", true)
         else
           options = options.dup
-
-          options[:started_at] ||= Time.zone.now
 
           @store.track_visit(options)
         end
@@ -108,14 +105,6 @@ module Ahoy
       domain = Ahoy.cookie_domain || Ahoy.domain
       cookie[:domain] = domain if domain
       request.cookie_jar[name] = cookie
-    end
-
-    def trusted_time(time)
-      if !time or (@options[:api] and !(1.minute.ago..Time.now).cover?(time))
-        Time.zone.now
-      else
-        time
-      end
     end
 
     def exclude?

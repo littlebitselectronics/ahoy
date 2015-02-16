@@ -7,6 +7,4 @@ class Ahoy::Event
 
   # fields
   field :name, type: String
-  field :properties, type: Hash
-  field :time, type: Time
 end

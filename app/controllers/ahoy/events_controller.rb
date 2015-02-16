@@ -16,14 +16,8 @@ module Ahoy
         end
 
       events.each do |event|
-        time = Time.zone.parse(event["time"]) rescue nil
-
-        # timestamp is deprecated
-        time ||= Time.zone.at(event["time"].to_f) rescue nil
-
         options = {
-          id: event["id"],
-          time: time
+          id: event["id"]
         }
         ahoy.track event["name"], event["properties"], options
       end

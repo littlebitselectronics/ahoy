@@ -44,7 +44,7 @@ class <%= migration_class_name %> < ActiveRecord::Migration
       # t.string :app_version
       # t.string :os_version
 
-      t.timestamp :started_at
+      t.timestamps
     end
 
     add_index :visits, [:user_id]

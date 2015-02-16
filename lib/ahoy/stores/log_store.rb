@@ -8,7 +8,6 @@ module Ahoy
           visitor_id: ahoy.visitor_id,
         }.merge(visit_properties.to_hash)
         data[:user_id] = user.id if user
-        data[:started_at] = options[:started_at]
 
         yield(data) if block_given?
 
@@ -24,7 +23,6 @@ module Ahoy
           visitor_id: ahoy.visitor_id
         }
         data[:user_id] = user.id if user
-        data[:time] = options[:time]
 
         yield(data) if block_given?
 

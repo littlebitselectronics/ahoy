@@ -216,8 +216,7 @@
     var event = {
       id: generateId(),
       name: name,
-      properties: properties,
-      time: (new Date()).getTime() / 1000.0
+      properties: properties
     };
     log(event);
 

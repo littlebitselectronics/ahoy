@@ -8,7 +8,6 @@ module Ahoy
             v.id = binary(ahoy.visit_id)
             v.visitor_id = binary(ahoy.visitor_id)
             v.user = user if v.respond_to?(:user=) && user
-            v.started_at = options[:started_at]
           end
 
         set_visit_properties(visit)
@@ -27,7 +26,6 @@ module Ahoy
             e.user = user if e.respond_to?(:user)
             e.name = name
             e.properties = properties
-            e.time = options[:time]
           end
 
         yield(event) if block_given?
