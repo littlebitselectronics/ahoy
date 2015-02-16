@@ -35,7 +35,6 @@ module Ahoy
             e.visitor_id = ahoy.visitor_id
             e.user = user
             e.name = name
-            e.time = options[:time]
             properties.each do |name, value|
               e.properties.build(name: name, value: value)
             end

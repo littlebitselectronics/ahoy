@@ -12,7 +12,6 @@ module Ahoy
           e.user = options[:user]
           e.name = name
           e.properties = properties
-          e.time = options[:time]
         end
       end
 

@@ -24,7 +24,6 @@ module Ahoy
           visitor_id: ahoy.visitor_id
         }
         data[:user_id] = user.id if user
-        data[:time] = options[:time]
 
         yield(data) if block_given?
 

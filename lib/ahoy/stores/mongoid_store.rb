@@ -27,7 +27,6 @@ module Ahoy
             e.user = user if e.respond_to?(:user)
             e.name = name
             e.properties = properties
-            e.time = options[:time]
           end
 
         yield(event) if block_given?

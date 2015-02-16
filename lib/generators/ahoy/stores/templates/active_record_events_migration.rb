@@ -10,7 +10,7 @@ class <%= migration_class_name %> < ActiveRecord::Migration
 
       t.string :name
 
-      t.timestamp :time
+      t.timestamps
     end
 
     add_index :ahoy_events, [:visit_id]
