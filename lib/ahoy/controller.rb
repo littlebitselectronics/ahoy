@@ -22,13 +22,13 @@ module Ahoy
     end
 
     def set_ahoy_cookies
-      ahoy.set_visitor_cookie
-      ahoy.set_visit_cookie
+      # ahoy.set_visitor_cookie
+      # ahoy.set_visit_cookie
     end
 
     def track_ahoy_visit
       if ahoy.new_visit?
-        ahoy.track_visit(defer: !Ahoy.track_visits_immediately)
+        # ahoy.track_visit(defer: !Ahoy.track_visits_immediately)
       end
     end
 

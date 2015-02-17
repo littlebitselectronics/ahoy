@@ -7,15 +7,15 @@ module Ahoy
       end
 
       def country
-        location.try(:country).presence
+        # location.try(:country).presence
       end
 
       def region
-        location.try(:state).presence
+        # location.try(:state).presence
       end
 
       def city
-        location.try(:city).presence
+        # location.try(:city).presence
       end
 
       protected
@@ -33,7 +33,6 @@ module Ahoy
         end
         @location
       end
-
     end
   end
 end
