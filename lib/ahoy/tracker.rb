@@ -41,6 +41,15 @@ module Ahoy
       report_exception(e)
     end
 
+    def check_for_persistence(options = {})
+      v = Visitor.where(id: options[:visitor_id]).first
+      if !v
+        v = Visitor.create(id: options[:visitor_id])
+        cur_visit = Visit.where(id: visit_id)
+        v.visits << cur_visit
+      end
+    end
+
     def authenticate(user)
       unless exclude?
         @store.authenticate(user)
