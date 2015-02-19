@@ -42,7 +42,7 @@ module Ahoy
     end
 
     def check_for_persistence(options = {})
-      v = Visitor.where(id: options[:visitor_id]).first
+      v = Visitor.find_by(id: options[:visitor_id])
       if !v
         v = Visitor.create(id: options[:visitor_id])
         cur_visit = Visit.where(id: visit_id)
