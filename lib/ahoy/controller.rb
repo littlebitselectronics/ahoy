@@ -30,7 +30,7 @@ module Ahoy
       if ahoy.new_visit?
         ahoy.track_visit(defer: !Ahoy.track_visits_immediately)
       else
-        ahoy.check_for_persistence(visitor_id: ahoy.visit.visitor_id, visit_id: ahoy.visit.id)
+        ahoy.check_for_persistence(visitor_id: ahoy.visitor_id, visit_id: ahoy.visit_id)
       end
     end
 
