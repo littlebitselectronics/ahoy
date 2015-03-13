@@ -42,12 +42,20 @@ module Ahoy
     end
 
     def check_for_persistence(options = {})
-      v = Visitor.where(id: options[:visitor_id]).first
-      if !v
-        v = Visitor.create(id: options[:visitor_id])
-        cur_visit = Visit.where(id: visit_id)
-        v.visits << cur_visit
+      visitor = Visitor.where(id: options[:visitor_id]).first
+      visit = Visit.where(id: options[:visit_id]).first
+
+      if visitor.nil? && visit.present?
+        visitor = Visitor.create(id: options[:visitor_id])
+        cur_visit = Visit.where(id: options[:visit_id])
+        visitor.visits << cur_visit
+      elsif visit.nil?
+        self.track_visit
+        cur_visit = Visit.where(id: options[:visit_id])
+        visitor.visits << cur_visit
       end
+
+      visitor.save if visitor.changed?
     end
 
     def authenticate(user)
