@@ -7,15 +7,15 @@ module Ahoy
       end
 
       def country
-        # location.try(:country).presence
+         location.try(:country_name).presence
       end
 
       def region
-        # location.try(:state).presence
+         location.try(:subdivision_1_name).presence
       end
 
       def city
-        # location.try(:city).presence
+         location.try(:city_name).presence
       end
 
       protected
@@ -24,7 +24,7 @@ module Ahoy
         if !@checked
           @location =
             begin
-              Geocoder.search(@ip).first
+              Maxmind::Ipv4.lookup(@ip).location
             rescue => e
               $stderr.puts e.message
               nil
