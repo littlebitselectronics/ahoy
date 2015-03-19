@@ -27,16 +27,20 @@ module Ahoy
     end
 
     def track_visit(options = {})
+      persisted_visit = nil
+
       unless exclude?
         if options[:defer]
           set_cookie("ahoy_track", true)
         else
           options = options.dup
 
-          @store.track_visit(options)
+          @store.track_visit(options) do |visit|
+            persisted_visit = visit
+          end
         end
       end
-      true
+      persisted_visit
     rescue => e
       report_exception(e)
     end
@@ -50,8 +54,20 @@ module Ahoy
         cur_visit = Visit.where(id: options[:visit_id])
         visitor.visits << cur_visit
       elsif visit.nil?
-        self.track_visit
-        cur_visit = Visit.where(id: options[:visit_id])
+        cur_visit = self.track_visit
+
+        if cur_visit.nil?
+          ::Honeybadger.notify(
+            :error_class   => "Ahoy::Tracker#check_for_persistence",
+            :error_message => "Visit not persisted in fallback",
+            :parameters    => {
+              visit_query: visit,
+              track_visit_return: cur_visit,
+              visitor: visitor
+            }
+          )
+        end
+
         visitor.visits << cur_visit
       end
 
