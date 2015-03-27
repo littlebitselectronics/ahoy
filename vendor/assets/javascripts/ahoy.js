@@ -136,8 +136,8 @@
 
   // main
 
-  visitId = getCookie("ahoy_visit");
-  visitorId = getCookie("ahoy_visitor");
+  visitId = getCookie("visit");
+  visitorId = getCookie("visitor");
   track = getCookie("ahoy_track");
 
   if (visitId && visitorId && !track) {
@@ -151,16 +151,16 @@
 
     if (!visitId) {
       visitId = generateId();
-      setCookie("ahoy_visit", visitId, visitTtl);
+      setCookie("visit", visitId, visitTtl);
     }
 
     // make sure cookies are enabled
-    if (getCookie("ahoy_visit")) {
+    if (getCookie("visit")) {
       log("Visit started");
 
       if (!visitorId) {
         visitorId = generateId();
-        setCookie("ahoy_visitor", visitorId, visitorTtl);
+        setCookie("visitor", visitorId, visitorTtl);
       }
 
       var data = {
@@ -195,8 +195,8 @@
   };
 
   ahoy.reset = function () {
-    destroyCookie("ahoy_visit");
-    destroyCookie("ahoy_visitor");
+    destroyCookie("visit");
+    destroyCookie("visitor");
     destroyCookie("ahoy_events");
     destroyCookie("ahoy_track");
     return true;

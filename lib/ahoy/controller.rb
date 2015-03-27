@@ -6,10 +6,22 @@ module Ahoy
     def self.included(base)
       base.helper_method :current_visit
       base.helper_method :ahoy
+      base.before_filter :migrate_old_cookies
       base.before_filter :set_ahoy_cookies
       base.before_filter :track_ahoy_visit
       base.before_filter do
         RequestStore.store[:ahoy] ||= ahoy
+      end
+    end
+
+    def migrate_old_cookies
+      if old_visit_cookie = cookies["ahoy_visit"].present?
+        cookies["visit"] = old_visit_cookie
+        cookies.delete("ahoy_visit")
+      end
+      if old_visitor_cookie = cookies["ahoy_visitor"].present?
+        cookies["visitor"] = old_visitor_cookie
+        cookies.delete("ahoy_visitor")
       end
     end
 
