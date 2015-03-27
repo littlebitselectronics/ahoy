@@ -46,7 +46,6 @@ module Ahoy
     end
 
     def check_for_persistence(options = {})
-      binding.pry
       visitor = Visitor.find_by(id: options[:visitor_id])
       visit = Visit.find_by(id: options[:visit_id])
 
