@@ -15,11 +15,11 @@ module Ahoy
     end
 
     def migrate_old_cookies
-      if old_visit_cookie = cookies["ahoy_visit"].present?
+      if (old_visit_cookie = cookies["ahoy_visit"]).present?
         cookies["visit"] = old_visit_cookie
         cookies.delete("ahoy_visit")
       end
-      if old_visitor_cookie = cookies["ahoy_visitor"].present?
+      if (old_visitor_cookie = cookies["ahoy_visitor"]).present?
         cookies["visitor"] = old_visitor_cookie
         cookies.delete("ahoy_visitor")
       end
