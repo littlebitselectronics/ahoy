@@ -28,7 +28,6 @@
 
   // http://www.quirksmode.org/js/cookies.html
   function setCookie(name, value, ttl) {
-    console.log(name + " val:" + value + "  ttl:" + ttl )
     var expires = "";
     var cookieDomain = "";
     if (ttl) {
@@ -39,6 +38,7 @@
     if (ahoy.domain) {
       cookieDomain = "; domain=" + ahoy.domain;
     }
+    console.log("I'M SETTING COOKIE-- \nname: " + name + "\nval: " + value + "\nttl: " + ttl + "\ncookie domain: " + cookieDomain )
     document.cookie = name + "=" + escape(value) + expires + cookieDomain + "; path=/";
   }
 
