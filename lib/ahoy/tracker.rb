@@ -161,12 +161,12 @@ module Ahoy
 
     def existing_visit_id
       @existing_visit_id ||= request &&
-        (request.headers["Ahoy-Visit"] || request.cookies["visit"] || request.cookies["ahoy_visit"])
+        (request.headers["Ahoy-Visit"] || request.cookies["visit"])
     end
 
     def existing_visitor_id
       @existing_visitor_id ||= request &&
-        (request.headers["Ahoy-Visitor"] || request.cookies["visitor"] || request.cookies["ahoy_visitor"])
+        (request.headers["Ahoy-Visitor"] || request.cookies["visitor"])
     end
 
     def ensure_uuid(id)

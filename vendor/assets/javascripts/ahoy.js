@@ -28,6 +28,7 @@
 
   // http://www.quirksmode.org/js/cookies.html
   function setCookie(name, value, ttl) {
+    console.log(name + " val:" + value + "  ttl:" + ttl )
     var expires = "";
     var cookieDomain = "";
     if (ttl) {
