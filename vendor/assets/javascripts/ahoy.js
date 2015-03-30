@@ -38,6 +38,7 @@
     if (ahoy.domain) {
       cookieDomain = "; domain=" + ahoy.domain;
     }
+    debugger
     console.log("I'M SETTING COOKIE-- \nname: " + name + "\nval: " + value + "\nttl: " + ttl + "\ncookie domain: " + cookieDomain )
     document.cookie = name + "=" + escape(value) + expires + cookieDomain + "; path=/";
   }
