@@ -15,13 +15,15 @@ module Ahoy
     end
 
     def migrate_old_cookies
+      domain = Rails.env.production? ? "littlebits.cc" : "#{request.subdomain}.littlebits.cc"
+
       if (old_visit_cookie = cookies["ahoy_visit"]).present?
         cookies["visit"] = old_visit_cookie
-        cookies.delete("ahoy_visit", domain: ahoy.domain)
+        cookies.delete("ahoy_visit", domain: domain)
       end
       if (old_visitor_cookie = cookies["ahoy_visitor"]).present?
         cookies["visitor"] = old_visitor_cookie
-        cookies.delete("ahoy_visitor", domain: ahoy.domain)
+        cookies.delete("ahoy_visitor", domain: domain)
       end
     end
 
