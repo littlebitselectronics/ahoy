@@ -93,12 +93,12 @@
     });
   }
 
-  function saveEventQueue() {
-    // TODO add stringify method for IE 7 and under
-    if (canStringify) {
-      setCookie("ahoy_events", JSON.stringify(eventQueue), 1);
-    }
-  }
+  // function saveEventQueue() {
+  //   // TODO add stringify method for IE 7 and under
+  //   if (canStringify) {
+  //     setCookie("ahoy_events", JSON.stringify(eventQueue), 1);
+  //   }
+  // }
 
   function trackEvent(event) {
     ready( function () {
@@ -112,13 +112,13 @@
           dataType: "json",
           success: function() {
             // remove from queue
-            for (var i = 0; i < eventQueue.length; i++) {
-              if (eventQueue[i].id == event.id) {
-                eventQueue.splice(i, 1);
-                break;
-              }
-            }
-            saveEventQueue();
+            // for (var i = 0; i < eventQueue.length; i++) {
+            //   if (eventQueue[i].id == event.id) {
+            //     eventQueue.splice(i, 1);
+            //     break;
+            //   }
+            // }
+            // saveEventQueue();
           }
         });
       }
@@ -199,7 +199,7 @@
   ahoy.reset = function () {
     destroyCookie("visit");
     destroyCookie("visitor");
-    destroyCookie("ahoy_events");
+    // destroyCookie("ahoy_events");
     destroyCookie("ahoy_track");
     return true;
   };
@@ -222,8 +222,8 @@
     };
     log(event);
 
-    eventQueue.push(event);
-    saveEventQueue();
+    // eventQueue.push(event);
+    // saveEventQueue();
 
     // wait in case navigating to reduce duplicate events
     setTimeout( function () {
@@ -277,15 +277,15 @@
   };
 
   // push events from queue
-  try {
-    eventQueue = JSON.parse(getCookie("ahoy_events") || "[]");
-  } catch (e) {
-    // do nothing
-  }
+  // try {
+  //   eventQueue = JSON.parse(getCookie("ahoy_events") || "[]");
+  // } catch (e) {
+  //   // do nothing
+  // }
 
-  for (var i = 0; i < eventQueue.length; i++) {
-    trackEvent(eventQueue[i]);
-  }
+  // for (var i = 0; i < eventQueue.length; i++) {
+  //   trackEvent(eventQueue[i]);
+  // }
 
   window.ahoy = ahoy;
 }(window));
