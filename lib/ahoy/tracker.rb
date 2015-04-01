@@ -46,32 +46,31 @@ module Ahoy
     end
 
     def check_for_persistence(options = {})
-      visitor = Visitor.where(id: options[:visitor_id]).first
-      visit = Visit.where(id: options[:visit_id]).first
+      visitor = Visitor.find_by(id: options[:visitor_id])
+      visit = Visit.find_by(id: options[:visit_id])
 
-      if visitor.nil? && visit.present?
+      if visitor.nil?
         visitor = Visitor.create(id: options[:visitor_id])
-        cur_visit = Visit.where(id: options[:visit_id])
-        visitor.visits << cur_visit
-      elsif visit.nil?
-        cur_visit = self.track_visit
-
-        if cur_visit.nil?
-          ::Honeybadger.notify(
-            :error_class   => "Ahoy::Tracker#check_for_persistence",
-            :error_message => "Visit not persisted in fallback",
-            :parameters    => {
-              visit_query: visit,
-              track_visit_return: cur_visit,
-              visitor: visitor
-            }
-          )
-        end
-
-        visitor.visits << cur_visit
+        set_visitor = true
       end
-
-      visitor.save if visitor.changed?
+      if visit.nil?
+        visit = self.track_visit
+        set_visit = true
+      end
+      if set_visit || set_visitor
+        visitor.visits << visit
+        visitor.save
+        ::Honeybadger.notify(
+          :error_class   => "Ahoy::Tracker#check_for_persistence",
+          :error_message => "Visit or Visitor not persisted in fallback",
+          :parameters    => {
+            visit_query: visit,
+            visitor: visitor,
+            created_visitor: set_visitor,
+            created_visit: set_visit
+          }
+         )
+      end
     end
 
     def authenticate(user)
