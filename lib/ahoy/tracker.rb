@@ -58,18 +58,32 @@ module Ahoy
         set_visit = true
       end
       if set_visit || set_visitor
-        visitor.visits << visit
-        visitor.save
-        ::Honeybadger.notify(
-          :error_class   => "Ahoy::Tracker#check_for_persistence",
-          :error_message => "Visit or Visitor not persisted in fallback",
-          :parameters    => {
-            visit_query: visit,
-            visitor: visitor,
-            created_visitor: set_visitor,
-            created_visit: set_visit
-          }
-         )
+        if visit.nil?
+          ::Honeybadger.notify(
+            :error_class   => "Ahoy::Tracker#check_for_persistence",
+            :error_message => "Visit unable to be created",
+            :parameters    => {
+              visit_id: options[:visit_id],
+              visitor_id: options[:visitor_id],
+              visitor: visitor,
+              created_visitor: set_visitor,
+              created_visit: set_visit
+            }
+           )
+        else
+          visitor.visits << visit
+          visitor.save
+          ::Honeybadger.notify(
+            :error_class   => "Ahoy::Tracker#check_for_persistence",
+            :error_message => "Visit or Visitor not persisted in fallback",
+            :parameters    => {
+              visit_query: visit,
+              visitor: visitor,
+              created_visitor: set_visitor,
+              created_visit: set_visit
+            }
+           )
+        end
       end
     end
 
