@@ -22,6 +22,8 @@ module Ahoy
     end
 
     def set_ahoy_cookies
+      Rails.logger.info("setting migrated visit")
+
       ahoy.set_visitor_cookie
       ahoy.set_visit_cookie
 
