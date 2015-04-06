@@ -22,8 +22,12 @@ module Ahoy
     end
 
     def set_ahoy_cookies
+      Rails.logger.info("setting migrated visit")
+
       ahoy.set_visitor_cookie
       ahoy.set_visit_cookie
+
+      delete_obsolete_cookies
     end
 
     def track_ahoy_visit
@@ -34,5 +38,11 @@ module Ahoy
       end
     end
 
+    private
+
+    def delete_obsolete_cookies
+      cookies.delete("ahoy_visitor")
+      cookies.delete("ahoy_visit")
+    end
   end
 end

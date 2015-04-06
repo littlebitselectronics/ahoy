@@ -1,12 +1,13 @@
 module Ahoy
   class Tracker
-    attr_reader :request, :controller
+    attr_reader :request, :controller, :domain
 
     def initialize(options = {})
       @store = Ahoy::Store.new(options.merge(ahoy: self))
       @controller = options[:controller]
       @request = options[:request] || @controller.try(:request)
       @options = options
+      @domain = request.subdomain.present? ? "#{request.subdomain}.#{request.domain}" : request.domain
     end
 
     def track(name, properties = {}, options = {})
@@ -113,12 +114,14 @@ module Ahoy
     end
 
     def set_visit_cookie
-      set_cookie("ahoy_visit", visit_id, Ahoy.visit_duration)
+      set_cookie("visit", visit_id, Ahoy.visit_duration) unless migrate_old_visit_cookie
     end
 
     def set_visitor_cookie
-      if !existing_visitor_id
-        set_cookie("ahoy_visitor", visitor_id, Ahoy.visitor_duration)
+      unless migrate_old_visitor_cookie
+        if !existing_visitor_id
+          set_cookie("visitor", visitor_id, Ahoy.visitor_duration)
+        end
       end
     end
 
@@ -174,16 +177,33 @@ module Ahoy
     end
 
     def existing_visit_id
-      @existing_visit_id ||= request && (request.headers["Ahoy-Visit"] || request.cookies["ahoy_visit"])
+      @existing_visit_id ||= request &&
+        (request.headers["Ahoy-Visit"] || request.cookies["visit"])
     end
 
     def existing_visitor_id
-      @existing_visitor_id ||= request && (request.headers["Ahoy-Visitor"] || request.cookies["ahoy_visitor"])
+      @existing_visitor_id ||= request &&
+        (request.headers["Ahoy-Visitor"] || request.cookies["visitor"])
     end
 
     def ensure_uuid(id)
       Ahoy.ensure_uuid(id)
     end
 
+    def migrate_old_visitor_cookie
+      if (old_visitor_cookie = request.cookies["ahoy_visitor"]).present?
+        set_cookie("visitor", old_visitor_cookie, Ahoy.visitor_duration)
+        return true
+      end
+      false
+    end
+
+    def migrate_old_visit_cookie
+      if (old_visit_cookie = request.cookies["ahoy_visit"]).present?
+        set_cookie("visit", old_visit_cookie, Ahoy.visit_duration)
+        return true
+      end
+      false
+    end
   end
 end
