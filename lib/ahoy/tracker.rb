@@ -191,7 +191,10 @@ module Ahoy
     end
 
     def migrate_old_visitor_cookie
-      if (old_visitor_cookie = request.cookies["ahoy_visitor"]).present?
+      old_visitor_cookie = request.cookies["ahoy_visitor"]
+      new_visitor_cookie = request.cookies["visitor"]
+
+      if old_visitor_cookie.present? && !new_visitor_cookie.present?
         set_cookie("visitor", old_visitor_cookie, Ahoy.visitor_duration)
         return true
       end
@@ -199,7 +202,10 @@ module Ahoy
     end
 
     def migrate_old_visit_cookie
-      if (old_visit_cookie = request.cookies["ahoy_visit"]).present?
+      old_visit_cookie = request.cookies["ahoy_visit"]
+      new_visit_cookie = request.cookies["visit"]
+
+      if (old_visit_cookie).present? && !new_visit_cookie
         set_cookie("visit", old_visit_cookie, Ahoy.visit_duration)
         return true
       end
