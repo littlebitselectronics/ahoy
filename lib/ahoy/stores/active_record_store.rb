@@ -12,7 +12,8 @@ module Ahoy
 
         set_visit_properties(visit)
 
-        visitor = Visitor.find_or_create_by(id: visit.visitor_id)
+        visitor = Visitor.where(id: visit.visitor_id).first
+        visitor = Visitor.create(id: visit.visitor_id) if visitor.nil?
         visitor.visits << visit
 
         yield(visit) if block_given?
