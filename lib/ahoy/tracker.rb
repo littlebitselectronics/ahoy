@@ -51,19 +51,17 @@ module Ahoy
 
       if visit.nil?
         visit = self.track_visit
-        set_visit = true
-      end
 
-      if visit.nil?
-        ::Honeybadger.notify(
+        if visit.nil?
+          ::Honeybadger.notify(
             :error_class   => "Ahoy::Tracker#check_for_persistence",
-            :error_message => "Visit unable to be created",
+            :error_message => "Visit nil and unable to be created",
             :parameters    => {
               visit_id: options[:visit_id],
-              visitor_id: options[:visitor_id],
-              created_visit: set_visit
+              visitor_id: options[:visitor_id]
             }
-           )
+          )
+        end
       end
     end
 
