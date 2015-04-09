@@ -12,15 +12,10 @@ module Ahoy
 
         set_visit_properties(visit)
 
-        visitor = Visitor.where(id: visit.visitor_id).first
-        visitor = Visitor.create(id: visit.visitor_id) if visitor.nil?
-        visitor.visits << visit
-
         yield(visit) if block_given?
 
         begin
           visit.save!
-          visitor.save!
           geocode(visit)
         rescue *unique_exception_classes
           # do nothing
@@ -57,10 +52,6 @@ module Ahoy
 
       def visit_model
         ::Visit
-      end
-
-      def visitor_model
-        ::Visitor
       end
 
       def event_model
