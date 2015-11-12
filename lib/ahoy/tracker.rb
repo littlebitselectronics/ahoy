@@ -46,35 +46,6 @@ module Ahoy
       report_exception(e)
     end
 
-    def check_for_persistence(options = {})
-      visit = Visit.find_by(id: options[:visit_id])
-
-      if visit.nil?
-        visit = self.track_visit
-
-        if visit.nil?
-          ::Honeybadger.notify(
-            :error_class   => "Ahoy::Tracker#check_for_persistence",
-            :error_message => "Visit nil and unable to be created",
-            :parameters    => {
-              visit_id: options[:visit_id],
-              visitor_id: options[:visitor_id]
-            }
-          )
-        else
-          ::Honeybadger.notify(
-            :error_class   => "Ahoy::Tracker#check_for_persistence",
-            :error_message => "Visit was succesfully created",
-            :parameters    => {
-              visit_id: options[:visit_id],
-              visit: visit,
-              visitor_id: options[:visitor_id]
-            }
-          )
-        end
-      end
-    end
-
     def authenticate(user)
       unless exclude?
         @store.authenticate(user)
