@@ -35,6 +35,7 @@ module Ahoy
           set_cookie("ahoy_track", true)
         else
           options = options.dup
+          options.merge!(new_visit: new_visit?)
 
           @store.track_visit(options) do |visit|
             persisted_visit = visit
