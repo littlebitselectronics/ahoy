@@ -1,6 +1,10 @@
 ### This is littleBit's forked version of Ahoy. Please refer to our own tracking [wiki](https://github.com/littlebitselectronics/little_bits/wiki/Tracking-and-AB-testing) to understand how Ahoy interfaces with our application and what methods to use for tracking
 
+[![Circle CI](https://circleci.com/gh/littlebitselectronics/ahoy.svg?style=svg)](https://circleci.com/gh/littlebitselectronics/ahoy)
+[![Code Climate](https://codeclimate.com/github/littlebitselectronics/ahoy/badges/gpa.svg)](https://codeclimate.com/github/littlebitselectronics/ahoy)
+
 # Ahoy
+
 
 Ahoy provides a solid foundation to track visits and events in Ruby, JavaScript, and native apps.
 

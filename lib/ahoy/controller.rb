@@ -29,11 +29,7 @@ module Ahoy
     end
 
     def track_ahoy_visit
-      if ahoy.new_visit?
-        ahoy.track_visit(defer: !Ahoy.track_visits_immediately)
-      else
-        ahoy.check_for_persistence(visitor_id: ahoy.visitor_id, visit_id: ahoy.visit_id)
-      end
+      ahoy.track_visit(defer: !Ahoy.track_visits_immediately)
     end
 
     private

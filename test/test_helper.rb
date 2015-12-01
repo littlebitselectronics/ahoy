@@ -1,4 +1,4 @@
-require "bundler/setup"
-Bundler.require(:default)
-require "minitest/autorun"
-require "minitest/pride"
+require 'bundler/setup'
+Bundler.require(:default, :test)
+require 'minitest/autorun'
+require 'minitest/pride'
